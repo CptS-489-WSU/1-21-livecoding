@@ -32,16 +32,7 @@
       e.stopPropagation();
     }
   }
-  //modeBtnClick: Function that can be bound to mode button click event.  
-  document.onclick = function () {
-    //menu must be open
-    if (document.getElementById("sideMenu").style.width === "250px") {
-      document.getElementById("menuBtnIcon").classList.add("fa-bars");
-      document.getElementById("menuBtnIcon").classList.remove("fa-times");
-      document.getElementById("sideMenu").style.width = "0px";
-    }
-  }
-  
+   
   /* menuBtnClick -- When the user clicks on a menu item, we need to 
      - close the side menu
      - change the side menu icon from an x to bars
@@ -74,4 +65,23 @@
     document.getElementById("aboutModal").style.display = "block";
     //Must be dismissed through clicking the 'x'
   }
+
+  //Hitting the 'return' key should auto-trigger the login
+  document.onkeypress = function(e) {
+    if(e.key === "Enter"){
+      e.preventDefault(); //prevents page from attempting to reload
+      document.getElementById("SSLoginBtn").click(); //trigger button click event
+    }
+  }
+
+  document.getElementById("SSLoginBtn").addEventListener("click", function(){
+    document.getElementById("loginSpinner").classList.add("fas", "fa-spinner", "fa-spin");
+    setTimeout(function(){
+        //Let spinner spin for 2 sec
+        document.getElementById("loginSpinner").classList.remove("fas", "fa-spinner", "fa-spin");
+        document.getElementById("loginDiv").style.display = "none";
+        document.getElementById("feedDiv").style.display = "block";
+        document.getElementById("menuBtn").disabled = false;
+
+    }, 2000) //2000 miliseconds 
 </script>
