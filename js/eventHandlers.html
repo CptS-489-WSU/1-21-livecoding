@@ -21,6 +21,12 @@
 
   //document click: If the user clicks anywhere in the document while the side menu is open, we need to
   //close the menu, toggle the menu state, and re-enable all buttons/input fields on the page.
+  $(document).click(function() {
+    if ($("#menuBtnIcon").hasClass("fa-times")) {
+      $("#sideMenu").css("width", "0px");
+      $("#menuBtnIcon").toggleClass("fa-times fa-bars ");
+    }
+  });
 
   //menuBtn click: When the top-left side menu button is clicked, we need to act based on which menu is
   //presently displayed -- hamburger or left arrow. 
@@ -66,15 +72,17 @@
   }
 
   //Hitting the 'return' key should auto-trigger the login
-  document.onkeypress = function(e) {
+  $(document).keypress(function(e) {
     if(e.key === "Enter"){
       e.preventDefault(); //prevents page from attempting to reload
-      document.getElementById("SSLoginBtn").click(); //trigger button click event
+      $("#SSLoginBtn").click(); //trigger button click event
     }
-  }
+  });
 
-  $("#SSLoginBtn").click( function() {
-    $("loginSpinner").addClass("fas fa-spinner fa-spin");
+  $("#SSLoginBtn").click( function(e) {
+    e.stopPropagation(); //Don't allow click event to bubble up to document handler.
+    $("#loginSpinner").addClass("fas fa-spinner fa-spin");
+    $("#loginLabel").text(" Please Wait...");
     setTimeout(function(){
         //Let spinner spin for 2 sec
         $("#loginSpinner").removeClass("fas fa-spinner fa-spin");
@@ -83,6 +91,7 @@
         $("#menuBtn").prop("disabled", false);
         $("#sideMenu").data("currentPage","feedDiv");
         $("#topBarTitle").html("Activity Feed");
+        $("#loginLabel").text("Log in");
     }, 2000) //2000 miliseconds 
   });
 
