@@ -67,7 +67,7 @@
   $("#aboutBtn").click(function(e) {
     $("#sideMenu").css("width", "0px");
     $("#menuBtnIcon").toggleClass("fa-times fa-bars");
-    $("#aboutModal").show();
+    $("#aboutModal").modal("show");
     e.stopPropagation();
     //Will be dismissed through clicking the 'x' or 'OK' buttons
   });
@@ -139,7 +139,7 @@
   //Disable the side menu when login page is visible.
   $("#menuBtn").prop("disabled", true);
   
-
+    $('[data-toggle = "tooltip"]').tooltip();
   });
 
 </script>

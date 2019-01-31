@@ -1,22 +1,27 @@
 <!-- loginDiv -- The log in page -->
-<div id="loginDiv">
+
+<div id="loginDiv" class="container">
 <br />
 <br />
 <br />
 <br />
 <center>
-    <img id="tLogo" src= "https://drive.google.com/uc?export=view&id=1Pf83BwvycOuMRbuNbEm1zcFmW5ouUCaN">
+    <img id="tLogo" src= "https://drive.google.com/uc?export=view&id=1Pf83BwvycOuMRbuNbEm1zcFmW5ouUCaN" class="img-fluid">
     <form id="loginInterface">
-        <label for="emailInput" style="padding:0px; font-size:24px">Login Code:
-            <input type="email" placeholder="Enter Login Code" id="emailInput"
-            style="text-align: center; width:90%; height:10%; font-size: 24px" />
-        </label>
-        <label for="passwordInput" style="padding:0px; font-size: 24px;">Password:
-            <input type="password" placeholder="Enter Password" id="passwordInput" 
-            style="text-align:center; width:90%; height:10%; font-size: 24px"/>
-        </label>
+        <div class="form-group">
+            <label for="emailInput" style="padding:0px; font-size:24px" data-toggle="tooltip" title="Use login code provided by tournament director" data-placement="bottom">Login Code:
+                <input type="email" placeholder="Enter Login Code" id="emailInput"
+                    style="text-align: center; width:90%; height:10%; font-size: 24px" />
+            </label>
+        </div>
+        <div class="form-group">
+            <label for="passwordInput" style="padding:0px; font-size: 24px;">Password:
+                <input type="password" placeholder="Enter Password" id="passwordInput" 
+                    style="text-align:center; width:90%; height:10%; font-size: 24px"/>
+            </label>
+        </div>
         <p id="feedback" style="font-size: 16px; background: red; color: white"></p>
-        <button type="button" id="SSLoginBtn" class="btncolortheme" 
+        <button type="button" id="SSLoginBtn" class="btn btn-primary btncolortheme" 
         style="width:70%; font-size:36px;">
             <span id="loginSpinner"></span>
             <span id="loginLabel">Log In</span>

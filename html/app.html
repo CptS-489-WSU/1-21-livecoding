@@ -10,6 +10,7 @@
 <!DOCTYPE html>
 <html>
   <head>
+    
     <!-- Begin HEAD section of document. Here we must use HTML comments as shown here. -->
     <!-- Default target for all hyperlinks in this file: https://www.w3schools.com/tags/att_base_target.asp -->
     <base target="_top"> 
@@ -17,19 +18,28 @@
     <meta charset="utf-8">
     <!-- HTML5 method that specifies viewable part of page ('viewport'). Always use the following,
          which sets the width of the page to the width of the device and scales page content to fit into page-->
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    
     <!-- Import External stylesheets and libraries using 'CDN' (content delivery network) links: -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+    
     <!-- TO DO: Put fontawesome CDN here-->
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
+    
+    
 </head>
  
 <style>
+  
     /* Begin the STYLE section of the document. Here we must delimit comments as shown here. 
        No other comment delimiting option is available */
     <?!= include('css/navbarCSS'); /*top navbar and sidemenu CSS definitions*/ ?>
-    <?!= include('css/modalCSS'); /* modal dialog box CSS definitions */?>
     <?!= include('css/appCSS');   /*this app's local CSS definitions */?>
+
 </style>
    
 <body>
@@ -38,17 +48,12 @@
   <!-- Fixed menu and button content goes here to define app structure: the top bar,
        the side menu, the bottom bar, and the floating contextual action button  -->
   <?!= include('html/appStruct'); ?>
-
+  
   <!-- App page definitions go here. -->
   <!-- Login page definition  -->
   <?!=include('html/loginDiv')?>
  
-  <div id="feedDiv">
-      <br>
-      <br>
-      <center><h1>Activity Feed</h1></center>
-    <?!=include('html/underConstruction')?>
-  </div>
+  <?!=include('html/feedDiv')?>
 
   <!-- Profile page for viewing and editing user settings -->
   <div id="profileDiv">
@@ -59,10 +64,7 @@
   </div>
 
   <!-- Rounds page displaying the user's round history -->
-  <div id="roundsDiv">
-      <br><br><center><h1>Rounds</h1></center>
-      <?!=include('html/underConstruction')?>
-  </div>
+ <?!=include('html/roundsDiv')?>
 
    <!-- Page  for displaying and searching for courses -->
    <div id="coursesDiv">
@@ -81,6 +83,8 @@
         <center><h1>Settings</h1></center>
         <?!=include('html/underConstruction')?>
    </div>
+
+
 
   </body>
 
