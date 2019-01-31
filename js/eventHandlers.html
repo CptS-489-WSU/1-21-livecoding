@@ -64,12 +64,13 @@
      box without changing the current page. THe user must dismiss the dialog box to get back
      to the current page.
   */
-  function aboutBtnClick() {
+  $("#aboutBtn").click(function(e) {
     $("#sideMenu").css("width", "0px");
     $("#menuBtnIcon").toggleClass("fa-times fa-bars");
     $("#aboutModal").show();
-    //Must be dismissed through clicking the 'x'
-  }
+    e.stopPropagation();
+    //Will be dismissed through clicking the 'x' or 'OK' buttons
+  });
 
   //Hitting the 'return' key should auto-trigger the login
   $(document).keypress(function(e) {
