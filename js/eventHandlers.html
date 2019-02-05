@@ -1,145 +1,83 @@
 <script>
-  /////////////////////////////
-  //UTILITY AND HELPER FUNCTIONS
-  /////////////////////////////
-
-  /* bindListenerToClassName -- Given a (CSS) class name, a function, and a listener type (e.g., "click"),
-  this function iterates through all elements with the class, binding the event listener function to 
-  the appropriate listener type. 
-  This is a utility function that allows us to bind the same function to all elements of a class. */
-  function bindListenerToClassName(className, func, listenerType) {
-    var classes = document.getElementsByClassName(className);
-    for (var i = 0; i < classes.length; ++i) {
-      classes[i].addEventListener(listenerType, func);
-    }
+  //The following scripts demonstrate alternate ways of issuing get and post requests against the Speedgolf DB web service
+     
+  //METHOD 1 (a): Use jQuery's .getJSON function to issue get request
+  //See this reference: https://stackoverflow.com/questions/29525860/google-apps-script-cross-domain-requests-stopped-working
+  //When the requestBtn is clicked, make a GET request to the web API.
+  $("#requestGetBtn").click(function() {
+    var url = ;
+    var settings = {
+      url: ,
+      method: ,
+      success: ,
+      dataType:
+    };
+   //make GET request here
+  });
+  
+  //METHOD 1 (a): Use jQuery's .ajax function to issue get request
+  //See this reference: https://stackoverflow.com/questions/29525860/google-apps-script-cross-domain-requests-stopped-working
+  //When the requestBtn2 is clicked, make a GET request to the web API.
+  $("#requestGetBtn2").click(function() {
+    var url = ;
+    var settings = {
+      url: ,
+      method: ,
+      success: ,
+      dataType:    
+    };
+   //make GET request here.
+  });
+  
+  //METHOD 1(b): Use jQuery's .ajax function to issue a post request.
+  //See this reference: https://stackoverflow.com/questions/29525860/google-apps-script-cross-domain-requests-stopped-working
+  //When the requestBtn is clicked, make a POST request to the web API.
+  $("#requestPostBtn").click(function() {
+    var settings = {
+      url: ,
+      method: ,
+      data:  ,
+      success: ,
+    };
+    //make ajax call here
+    
+  });
+  
+  
+  //METHOD 2: Use the jQuery Form plugin. We need to initialize it after the DOM is loaded -- hence we define it in document ready
+  //See http://malsup.com/jquery/form/#options-object for a description of the options
+  //Note that we need to import the jquery.form CDN!
+  
+ 
+  //getCallback -- This function is invoked when an jQuery Forms AJAX GET call returns with status == success.
+  //Use this callback when the return type is a string
+  function getCallbackString(response, status) { 
+    alert("The GET AJAX call returned: " + response + ", status: " + status);
+  } 
+  
+  //getCallbackJSON -- This function is invoked when an jQuery Forms AJAX GET call returns with status == success.
+  //Use this callback when the return type is an object
+  function getCallbackJSON(response, status) {
+    alert("The GET AJAX call returned: " + JSON.stringify(response) + ",  status: " + status);
   }
-
-
-  ////////////////////
-  //USER INPUT HANDLERS
-  /////////////////////
-
-  //document click: If the user clicks anywhere in the document while the side menu is open, we need to
-  //close the menu, toggle the menu state, and re-enable all buttons/input fields on the page.
-  $(document).click(function() {
-    if ($("#menuBtnIcon").hasClass("fa-times")) {
-      $("#sideMenu").css("width", "0px");
-      $("#menuBtnIcon").toggleClass("fa-times fa-bars ");
-    }
-  });
-
-  //menuBtn click: When the top-left side menu button is clicked, we need to act based on which menu is
-  //presently displayed -- hamburger or left arrow. 
-  $("#menuBtn").click(function (e) {
-    if ($("#menuBtnIcon").hasClass("fa-bars")) {
-      $("#sideMenu").css("width", "250px");
-      $("#menuBtnIcon").toggleClass("fa-bars fa-times");
-      e.stopPropagation();
-    }
-  });
-   
-  /* menuBtnClick -- When the user clicks on a menu item, we need to 
-     - close the side menu
-     - change the side menu icon from an x to bars
-     - hide the current page
-     - show the page corresponding to the item clicked
-     - set the page title to correspond to the new current page
-     - update the currentPage variable to indicate what div is presently shown
-  */
-  $(".sideMenuBtn").click( function() {
-    $("#sideMenu").css("width","0px");
-    $("#menuBtnIcon").toggleClass("fa-times fa-bars");
-    $("#" + $("#sideMenu").data("currentPage")).hide();
-    $("#" + $("#sideMenu").data("btnIdsToDivIds")[this.id]).show();
-    $("#topBarTitle").html($("#sideMenu").data("btnIdsToPageTitles")[this.id]);
-    $("#sideMenu").data("currentPage", $("#sideMenu").data("btnIdsToDivIds")[this.id]);
-    if (this.id == "signOutBtn") {
-      $("#menuBtn").prop("disabled", true);
-    } else {
-      $("#menuBtn").prop("disabled", false);
-    }
-  });
-
-  /* aboutBtnClick -- When the about menu item is clicked, we display the about modal dialog
-     box without changing the current page. THe user must dismiss the dialog box to get back
-     to the current page.
-  */
-  $("#aboutBtn").click(function(e) {
-    $("#sideMenu").css("width", "0px");
-    $("#menuBtnIcon").toggleClass("fa-times fa-bars");
-    $("#aboutModal").modal("show");
-    e.stopPropagation();
-    //Will be dismissed through clicking the 'x' or 'OK' buttons
-  });
-
-  //Hitting the 'return' key should auto-trigger the login
-  $(document).keypress(function(e) {
-    if(e.key === "Enter"){
-      e.preventDefault(); //prevents page from attempting to reload
-      $("#SSLoginBtn").click(); //trigger button click event
-    }
-  });
-
-  $("#SSLoginBtn").click( function(e) {
-    e.stopPropagation(); //Don't allow click event to bubble up to document handler.
-    $("#loginSpinner").addClass("fas fa-spinner fa-spin");
-    $("#loginLabel").text(" Please Wait...");
-    setTimeout(function(){
-        //Let spinner spin for 2 sec
-        $("#loginSpinner").removeClass("fas fa-spinner fa-spin");
-        $("#loginDiv").hide();
-        $("#feedDiv").show();
-        $("#menuBtn").prop("disabled", false);
-        $("#sideMenu").data("currentPage","feedDiv");
-        $("#topBarTitle").html("Activity Feed");
-        $("#loginLabel").text("Log in");
-    }, 2000) //2000 miliseconds 
-  });
-
-
-  $(document).ready(function (){
-//the global state variables, and (c) transitioning to the login page
-  //Initialize touch-friendly tooltips
-  //initializeTooltips();
-
-  $("#sideMenu").data("currentPage","loginDiv");
-  $("#sideMenu").data("btnIdsToDivIds",{
-    "feedBtn" : "feedDiv",
-    "coursesBtn" : "coursesDiv",
-    "roundsBtn" : "roundsDiv",
-    "aboutBtn" : "aboutModal",
-    "settingsBtn" : "settingsDiv",
-    "profileBtn" : "profileDiv",
-    "signOutBtn" : "loginDiv"
-  });
-  $("#sideMenu").data("btnIdsToPageTitles", {
-    "feedBtn" : "Activity Feed",
-    "coursesBtn" : "Courses",
-    "roundsBtn" : "Rounds",
-    "profileBtn" : "Profiles",
-    "settingsBtn" : "Settings",
-    "aboutBtn" : "About",
-    "signOutBtn" : "SpeedScore TRACK"
-  });
   
-  //Add the event listeners for the menu buttons
+  //postCallback -- This function is invoked when a jQuery Forms AJAX POST call returns with status == success.
+  function postCallback(response, status) {
+    alert("The POST AJAX call returned: " + response + ", status: " + status);
+  }
   
-  //close button on about box should close the about box
-  $("#close").click( function() { 
-    $("#aboutModal").hide();
-  });
-
-  //Hide all pages except for the the login page
-  $("#feedDiv").hide();
-  $("#coursesDiv").hide();
-  $("#roundsDiv").hide();
-  $("#profileDiv").hide();
-  $("#settingsDiv").hide();
-
-  //Disable the side menu when login page is visible.
-  $("#menuBtn").prop("disabled", true);
+  $(document).ready(function() {
+    //First, specify and set options for GET form
+    var getOptions = {
+      
+    };   
   
-    $('[data-toggle = "tooltip"]').tooltip();
+    
+    var postOptions = {
+      
+    }
+    
+    //Initialize forms here
+    
   });
-
-</script>
+ </script>
