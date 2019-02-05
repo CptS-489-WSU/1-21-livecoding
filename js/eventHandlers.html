@@ -1,83 +1,120 @@
 <script>
-  //The following scripts demonstrate alternate ways of issuing get and post requests against the Speedgolf DB web service
-     
-  //METHOD 1 (a): Use jQuery's .getJSON function to issue get request
-  //See this reference: https://stackoverflow.com/questions/29525860/google-apps-script-cross-domain-requests-stopped-working
-  //When the requestBtn is clicked, make a GET request to the web API.
-  $("#requestGetBtn").click(function() {
-    var url = ;
-    var settings = {
-      url: ,
-      method: ,
-      success: ,
-      dataType:
-    };
-   //make GET request here
-  });
-  
-  //METHOD 1 (a): Use jQuery's .ajax function to issue get request
-  //See this reference: https://stackoverflow.com/questions/29525860/google-apps-script-cross-domain-requests-stopped-working
-  //When the requestBtn2 is clicked, make a GET request to the web API.
-  $("#requestGetBtn2").click(function() {
-    var url = ;
-    var settings = {
-      url: ,
-      method: ,
-      success: ,
-      dataType:    
-    };
-   //make GET request here.
-  });
-  
-  //METHOD 1(b): Use jQuery's .ajax function to issue a post request.
-  //See this reference: https://stackoverflow.com/questions/29525860/google-apps-script-cross-domain-requests-stopped-working
-  //When the requestBtn is clicked, make a POST request to the web API.
-  $("#requestPostBtn").click(function() {
-    var settings = {
-      url: ,
-      method: ,
-      data:  ,
-      success: ,
-    };
-    //make ajax call here
+    //The following scripts demonstrate alternate ways of issuing get and post requests against the Speedgolf DB web service
+       
+    //METHOD 1 (a): Use jQuery's .getJSON function, supplying a url that has a callback=? query param.
+    //See this reference: https://stackoverflow.com/questions/29525860/google-apps-script-cross-domain-requests-stopped-working
+    //When the requestBtn is clicked, make a GET request to the web API.
+    $("#requestGetBtn").click(function() {
+      var url = "https://script.google.com/macros/s/AKfycbz9fletVh4ybAZHid8UjgcG3K0-9o06-6yzbkH44ot9YgkE0gg3/exec?playerName=" +
+                 $("#playerName").val() + "&callback=?";
+      var settings = {
+        url: "https://script.google.com/macros/s/AKfycbz9fletVh4ybAZHid8UjgcG3K0-9o06-6yzbkH44ot9YgkE0gg3/exec?playerName=" +
+                 $("#playerName").val() + "&callback=?",
+        method: 'GET',
+        success: function(data) {alert("The GET call returned: " + JSON.stringify(data));},
+        dataType: 'json'
+      };
+     //NOTE: The following two lines of code are exactly equivalent; $.getJSON provides a shorthand for the more 
+     //flexible $.ajax by setting its params as shown in settings object. Can safely uncomment either one.
+     //$.ajax(settings);
+     $.getJSON(url, function(data) {alert("The GET call returned: " + JSON.stringify(data));});
+    });
     
-  });
-  
-  
-  //METHOD 2: Use the jQuery Form plugin. We need to initialize it after the DOM is loaded -- hence we define it in document ready
-  //See http://malsup.com/jquery/form/#options-object for a description of the options
-  //Note that we need to import the jquery.form CDN!
-  
+    //METHOD 1 (a): Use jQuery's .getJSON function, supplying a url that has a callback=? query param.
+    //See this reference: https://stackoverflow.com/questions/29525860/google-apps-script-cross-domain-requests-stopped-working
+    //When the requestBtn is clicked, make a GET request to the web API.
+    $("#requestGetBtn2").click(function() {
+      var url = "https://script.google.com/macros/s/AKfycbz9fletVh4ybAZHid8UjgcG3K0-9o06-6yzbkH44ot9YgkE0gg3/exec?playerId=" +
+                 $("#playerId2").val() + "&callback=?";
+      var settings = {
+        url: "https://script.google.com/macros/s/AKfycbz9fletVh4ybAZHid8UjgcG3K0-9o06-6yzbkH44ot9YgkE0gg3/exec?playerId=" +
+                 $("#playerId2").val() + "&callback=?",
+        method: 'GET',
+        success: getCallbackJSON,
+        dataType: 'json'
+      };
+     //NOTE: The following two lines of code are exactly equivalent; $.getJSON provides a shorthand for the more 
+     //flexible $.ajax by setting its params as shown in settings object. Can safely uncomment either one.
+     //$.ajax(settings);
+     $.getJSON(url, getCallbackJSON);
+    });
+    
+    //METHOD 1(b): Use jQuery's .ajax function to issue a post request.
+    //See this reference: https://stackoverflow.com/questions/29525860/google-apps-script-cross-domain-requests-stopped-working
+    //When the requestBtn is clicked, make a POST request to the web API.
+    $("#requestPostBtn").click(function() {
+      var settings = {
+        url: "https://script.google.com/macros/s/AKfycbz9fletVh4ybAZHid8UjgcG3K0-9o06-6yzbkH44ot9YgkE0gg3/exec",
+        method: 'POST',
+        data:  $("#postForm").serialize(),
+        success: postCallback,
+      };
+      $.ajax(settings);
+      //$("#postForm").submit();
+    });
+    
+    
+    //METHOD 2: Use the jQuery Form plugin. We need to initialize it after the DOM is loaded -- hence we define it in document ready
+    //See http://malsup.com/jquery/form/#options-object for a description of the options
+    //Note that we need to import the jquery.form CDN!
+    
+    
+   // pre-submit callback 
+   function showRequest(formData, jqForm, options) { 
+    // formData is an array; here we use $.param to convert it to a string to display it 
+    // but the form plugin does this for you automatically when it submits the data 
+    var queryString = $.param(formData); 
  
-  //getCallback -- This function is invoked when an jQuery Forms AJAX GET call returns with status == success.
-  //Use this callback when the return type is a string
-  function getCallbackString(response, status) { 
-    alert("The GET AJAX call returned: " + response + ", status: " + status);
-  } 
-  
-  //getCallbackJSON -- This function is invoked when an jQuery Forms AJAX GET call returns with status == success.
-  //Use this callback when the return type is an object
-  function getCallbackJSON(response, status) {
-    alert("The GET AJAX call returned: " + JSON.stringify(response) + ",  status: " + status);
-  }
-  
-  //postCallback -- This function is invoked when a jQuery Forms AJAX POST call returns with status == success.
-  function postCallback(response, status) {
-    alert("The POST AJAX call returned: " + response + ", status: " + status);
-  }
-  
-  $(document).ready(function() {
-    //First, specify and set options for GET form
-    var getOptions = {
-      
-    };   
-  
+    // jqForm is a jQuery object encapsulating the form element.  To access the 
+    // DOM element for the form do this: 
+    // var formElement = jqForm[0]; 
+ 
+    alert('About to submit: \n\n' + queryString + ", options: \n\n" + JSON.stringify(options)); 
+ 
+    // here we could return false to prevent the form from being submitted; 
+    // returning anything other than false will allow the form submit to continue 
+    return true; 
+   } 
+   
+   
+    //getCallback -- This function is invoked when an jQuery Forms AJAX GET call returns with status == success.
+    //Use this callback when the return type is a string
+    function getCallbackString(response, status) { 
+      alert("The GET AJAX call returned: " + response + ", status: " + status);
+    } 
     
-    var postOptions = {
-      
+    //getCallbackJSON -- This function is invoked when an jQuery Forms AJAX GET call returns with status == success.
+    //Use this callback when the return type is an object
+    function getCallbackJSON(response, status) {
+      alert("The GET AJAX call returned: " + JSON.stringify(response) + ",  status: " + status);
     }
     
-    //Initialize forms here
+    //postCallback -- This function is invoked when a jQuery Forms AJAX POST call returns with status == success.
+    function postCallback(response, status) {
+      alert("The POST AJAX call returned: " + response + ", status: " + status);
+    }
     
-  });
- </script>
+    //document ready -- initialize the jQuery forms with the appropriate options.
+    $(document).ready(function() {
+      //First, specify and set options for GET form
+      var getOptionsString = {
+        success: getCallbackString
+      };   
+      
+       var getOptionsJSON = {
+        success: getCallbackJSON
+      };
+      
+      var postOptions = {
+        success: postCallback,
+        //clearForm: true
+      }
+      
+      //$("#getForm").ajaxForm(getCallback); //initialize the GET ajax form
+      $("#getForm").ajaxForm(getOptionsString);
+      $("#getForm2").ajaxForm(getOptionsString);
+      //$("#postForm").ajaxForm(postOptions);
+      //Now set options for POST form
+      $("#postForm").ajaxForm(postOptions); //initialize the POST ajax form
+    });
+   </script>

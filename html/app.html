@@ -5,30 +5,52 @@
 -->
 
 <html>
-  <head>
-    <base target="_top">
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.form/4.2.2/jquery.form.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
-  </head>
-  <body>
-    <h3>Test API FOR ADDING A PLAYER</h3>
-    <form id="getForm">
-    </form>
-    <button class="btn btn-primary" id="requestGetBtn">Send jQuery GET Request</button>
-   <br>  
-   <h3>Test API FOR GETTING A PLAYER'S DATA</h3>
-    <form id="getForm2">
-    </form>
-    <button class="btn btn-primary" id="requestGetBtn2">Send jQuery GET Request</button>
-   <br> 
-   <h3>TEST API for POSTING A PLAYER'S HOLE DATA</h3>
-   <form id="postForm">
-  </form>
-  <?!= include('js/eventHandlers')?>
+    <head>
+        <base target="_top">
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.form/4.2.2/jquery.form.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
+      </head>
+      <body>
+        <h3>Test GET API FOR ADDING A PLAYER</h3>
+        <form id="getForm" method="get" action="https://script.google.com/macros/s/AKfycbz9fletVh4ybAZHid8UjgcG3K0-9o06-6yzbkH44ot9YgkE0gg3/exec">
+          <label for="playerName">Player Name:</label>
+            <input type="text" name="playerName" id="playerName">
+          <br/>
+          <input type="submit" id="getFormSubmit" class="btn btn-danger" value="Submit jQuery Form AJAX GET Request">
+        </form>
+        <button class="btn btn-primary" id="requestGetBtn">Send jQuery GET Request</button>
+       <br>  
+       <h3>Test GET API FOR GETTING A PLAYER'S DATA</h3>
+        <form id="getForm2" method="get" action="https://script.google.com/macros/s/AKfycbz9fletVh4ybAZHid8UjgcG3K0-9o06-6yzbkH44ot9YgkE0gg3/exec">
+          <label for="playerId">Player ID:</label>
+            <input type="text" name="playerId" id="playerId2">
+          <br/>
+          <input type="submit" id="getFormSubmit2" class="btn btn-danger" value="Submit jQuery Form AJAX GET Request">
+        </form>
+        <button class="btn btn-primary" id="requestGetBtn2">Send jQuery GET Request</button>
+       <br> 
+       <h3>Test POST API for POSTING A PLAYER'S HOLE DATA</h3>
+       <form id="postForm" method="post" action="https://script.google.com/macros/s/AKfycbz9fletVh4ybAZHid8UjgcG3K0-9o06-6yzbkH44ot9YgkE0gg3/exec">
+          <label for="playerId">Player ID:</label>
+            <input type="text" name="playerId" id="playerId"/>
+          <br>
+          <label for="holeNum">Hole Number:</label>
+            <input type="text" name="holeNum" id="holeNum"/>
+          <br>
+          <label for="holeStr">Strokes:</label>
+            <input type="text" name="holeStr" id="strokes"/>
+          <br>
+          <label for="holeTime">Time:</label>
+            <input type="text" name="holeTime" id="time"/>
+          <br>
+          <input type="submit" id="postFormSubmit" class="btn btn-danger" value="Submit jQuery Form AJAX POST Request">
+        </form>
+        <button class="btn btn-primary" id="requestPostBtn">Send jQuery POST Request</button>
+        <?!= include('js/eventHandlers')?>
    </body>
 </html>
