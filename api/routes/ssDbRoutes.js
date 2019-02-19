@@ -3,5 +3,10 @@ module.exports = function(app) {
     var sgCourse = require('../controllers/ssDbController');
 
     //routes
-    //TO DO: Fill in routes here
+    app.route('/courses')
+      .get(sgCourse.addCourse);
+    app.route('/courses/:courseId')
+      .get(sgCourse.getCourseData);
+    app.route('/courses/:courseId')
+      .post(sgCourse.updateCourseHole);
 };

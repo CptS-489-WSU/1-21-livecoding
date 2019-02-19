@@ -1,0 +1,33 @@
+{
+  "name": "sgdbapi",
+  "version": "1.0.0",
+  "description": "A project to demo a Node.js web service for the speedgolf course database",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/CptS-489-WSU/livecoding.git"
+  },
+  "keywords": [
+    "RESTful",
+    "API",
+    "Node.js"
+  ],
+  "author": "C Hundhausen",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/CptS-489-WSU/livecoding/issues"
+  },
+  "homepage": "https://github.com/CptS-489-WSU/livecoding#readme",
+  "dependencies": {
+    "body-parser": "^1.18.3",
+    "express": "^4.16.4",
+    "request": "^2.88.0"
+  },
+  "devDependencies": {
+    "nodemon": "^1.18.10"
+  }
+}

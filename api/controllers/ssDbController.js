@@ -17,7 +17,11 @@ exports.addCourse = function(req, res) {
       courseDbApiUrl += key + "=" + req.query[key] + "&";
     }
     courseDbApiUrl = courseDbApiUrl.substr(0,courseDbApiUrl.length - 1); //clip off last "&"
-    //TO DO: Fill in code here
+    console.log(courseDbApiUrl);
+    request.get(courseDbApiUrl,function(err,resp,body) {
+      resp.json({message: 'Add Course: Response from Speedgolf DB Web Service: ' +
+                JSON.stringify(resp)});
+    });
 };
 
 exports.getCourseData = function(req, res) {
@@ -30,7 +34,13 @@ exports.getCourseData = function(req, res) {
      courseDbApiUrl += key + "=" + req.query[key] + "&";
    }
    courseDbApiUrl = courseDbApiUrl.substr(0,courseDbApiUrl.length - 1); //clip off last "&"
-   //TO DO: Fill in code here
+   console.log(courseDbApiUrl);
+   request.get(courseDbApiUrl,function(err, resp, body) {
+     res.json({message: 'Get Course Data: Response from SG DB Web Service: ' +
+               JSON.stringify(resp)});
+   });
+
+   
    
 };
 
