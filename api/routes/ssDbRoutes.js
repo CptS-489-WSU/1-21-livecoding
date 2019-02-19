@@ -4,9 +4,12 @@ module.exports = function(app) {
 
     //routes
     app.route('/courses')
-      .get(sgCourse.addCourse);
+    .get(sgCourse.addCourse);
+
     app.route('/courses/:courseId')
-      .get(sgCourse.getCourseData);
-    app.route('/courses/:courseId')
+      .get(sgCourse.getCourseData)
       .post(sgCourse.updateCourseHole);
+
+   
+    
 };
